@@ -99,7 +99,7 @@ class NarrowEnv(AbstractEnv):
         road = self.road
         ego_vehicle = self.action_type.vehicle_class(road,
                                                      road.network.get_lane(("a", "b", 0)).position(0, 0),
-                                                     speed=10)
+                                                     speed=3)
         road.vehicles.append(ego_vehicle)
         self.vehicle = ego_vehicle
 
@@ -108,7 +108,7 @@ class NarrowEnv(AbstractEnv):
         # Add stationary vehicles on the left and right of the lane with zero speed.
         for i in range(2):
             v = Vehicle(road, position=road.network.get_lane(("b", "a", 0))
-                .position(10 + 50*self.np_random.randn(), -2.5),
+                .position(10 + 50*self.np_random.randn(), 2.5),
                 heading=road.network.get_lane(("b", "a", 0)).heading_at(0),
                 speed=0)
             v.target_lane_index = ("b", "a", 0)
@@ -129,7 +129,7 @@ class NarrowEnv(AbstractEnv):
                               position=road.network.get_lane(("b", "a", 0))
                               .position(0 + 10*self.np_random.randn(), 0),
                               heading=road.network.get_lane(("b", "a", 0)).heading_at(0),
-                              speed=5 + 5*self.np_random.randn(),
+                              speed=1 + 5*self.np_random.randn(),
                               enable_lane_change=False)
             v.target_lane_index = ("b", "a", 0)
             self.road.vehicles.append(v)
