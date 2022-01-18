@@ -9,7 +9,7 @@ from highway_env.vehicle.kinematics import Vehicle
 from highway_env.vehicle.controller import MDPVehicle
 
 
-class NarrowOncomingEnv(AbstractEnv):
+class NarrowEnv(AbstractEnv):
 
     """
     A risk management task: the agent is driving on a two-way lane with one oncoming vehicle.
@@ -131,7 +131,7 @@ class NarrowOncomingEnv(AbstractEnv):
 
 
 register(
-    id='narrow-oncoming-v0',
-    entry_point='highway_env.envs:NarrowOncomingEnv',
+    id='narrow-v0',
+    entry_point='highway_env.envs:NarrowEnv',
     max_episode_steps=50
 )
