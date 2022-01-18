@@ -69,7 +69,7 @@ class NarrowEnv(AbstractEnv):
         self._make_road()
         self._make_vehicles()
 
-    def _make_road(self, length=150):
+    def _make_road(self, length=70):
         """
         Make a road composed of a two-way road.
 
@@ -108,7 +108,7 @@ class NarrowEnv(AbstractEnv):
         # Add stationary vehicles on the left and right of the lane with zero speed.
         for i in range(2):
             v = Vehicle(road, position=road.network.get_lane(("b", "a", 0))
-                .position(0 + 100*self.np_random.randn(), -2.5),
+                .position(10 + 50*self.np_random.randn(), -2.5),
                 heading=road.network.get_lane(("b", "a", 0)).heading_at(0),
                 speed=0)
             v.target_lane_index = ("b", "a", 0)
@@ -117,7 +117,7 @@ class NarrowEnv(AbstractEnv):
         # Add stationary vehicles on the left and right of the lane with zero speed.
         for i in range(2):
             v = Vehicle(road, position=road.network.get_lane(("a", "b", 0))
-                .position(0 + 100*self.np_random.randn(), 2.5),
+                .position(10 + 50*self.np_random.randn(), 2.5),
                 heading=road.network.get_lane(("a", "b", 0)).heading_at(0),
                 speed=0)
             v.target_lane_index = ("a", "b", 0)
