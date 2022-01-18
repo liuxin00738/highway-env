@@ -122,7 +122,8 @@ class LaneGraphics(object):
         :param lane: the lane to be displayed
         :param surface: the pygame surface
         """
-        stripes_count = int(2 * (surface.get_height() + surface.get_width()) / (cls.STRIPE_SPACING * surface.scaling))
+        # TOOD(xin): figure out the correct number of stripes to use
+        stripes_count = 5*int(2 * (surface.get_height() + surface.get_width()) / (cls.STRIPE_SPACING * surface.scaling))
         s_origin, _ = lane.local_coordinates(surface.origin)
         s0 = (int(s_origin) // cls.STRIPE_SPACING - stripes_count // 2) * cls.STRIPE_SPACING
         for side in range(2):
