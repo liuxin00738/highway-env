@@ -102,7 +102,7 @@ class NarrowEnv(AbstractEnv):
 
         # Add stationary vehicles on the left and right of the lane with zero speed.
         for i in range(2):
-            v = Vehiccle(road, position=road.network.get_lane(("b", "a", 0))
+            v = Vehicle(road, position=road.network.get_lane(("b", "a", 0))
                 .position(0 + 100*self.np_random.randn(), -2.5),
                 heading=road.network.get_lane(("b", "a", 0)).heading_at(0),
                 speed=0)
@@ -111,7 +111,7 @@ class NarrowEnv(AbstractEnv):
 
         # Add stationary vehicles on the left and right of the lane with zero speed.
         for i in range(2):
-            v = Vehiccle(road, position=road.network.get_lane(("a", "b", 0))
+            v = Vehicle(road, position=road.network.get_lane(("a", "b", 0))
                 .position(0 + 100*self.np_random.randn(), 2.5),
                 heading=road.network.get_lane(("a", "b", 0)).heading_at(0),
                 speed=0)
