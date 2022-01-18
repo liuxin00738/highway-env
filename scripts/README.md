@@ -8,6 +8,10 @@ This page contains example notebooks to train RL agents on `highway-env` using s
 
 Train a `highway-v0` policy with DQN.
 
+### Narrow Oncoming with DQN [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/liuxin00738/highway-env/blob/master/scripts/narrow_oncoming_dqn.ipynb)
+
+Train a `highway-v0` policy with DQN.
+
 ### Highway with PPO [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/eleurent/highway-env/blob/master/scripts/sb3_highway_ppo.ipynb)
 
 Train a `highway-v0` policy with PPO.
