@@ -45,12 +45,15 @@ class NarrowEnv(AbstractEnv):
         :param action: the action performed
         :return: the reward of the state-action transition
         """
-        neighbours = self.road.network.all_side_lanes(self.vehicle.lane_index)
 
-        reward = self.config["high_speed_reward"] * self.vehicle.speed_index / (self.vehicle.target_speeds.size - 1) \
-            + self.config["left_lane_reward"] \
-                * (len(neighbours) - 1 - self.vehicle.target_lane_index[2]) / (len(neighbours) - 1)
-        return reward
+        # TODO(xin): implement reward
+        return 0.0
+        # neighbours = self.road.network.all_side_lanes(self.vehicle.lane_index)
+
+        # reward = self.config["high_speed_reward"] * self.vehicle.speed_index / (self.vehicle.target_speeds.size - 1) \
+        #     + self.config["left_lane_reward"] \
+        #         * (len(neighbours) - 1 - self.vehicle.target_lane_index[2]) / (len(neighbours) - 1)
+        # return reward
 
     def _is_terminal(self) -> bool:
         """The episode is over if the ego vehicle crashed or the time is out."""
@@ -58,7 +61,9 @@ class NarrowEnv(AbstractEnv):
 
     def _cost(self, action: int) -> float:
         """The constraint signal is the time spent driving on the opposite lane, and occurrence of collisions."""
-        return float(self.vehicle.crashed) + float(self.vehicle.lane_index[2] == 0)/15
+        return float(0.0)
+        # TODO(xin): implement cost
+        # return float(self.vehicle.crashed) + float(self.vehicle.lane_index[2] == 0)/15
 
     def _reset(self) -> np.ndarray:
         self._make_road()
