@@ -99,7 +99,7 @@ class NarrowEnv(AbstractEnv):
         ego_vehicle = self.action_type.vehicle_class(road,
                                                      road.network.get_lane(("a", "b", 0)).position(50, 0),
                                                      speed=3,
-                                                     target_speeds={0,2.5,5,7.5,10,12.5})
+                                                     target_speeds=[0,2.5,5,7.5,10,12.5])
         road.vehicles.append(ego_vehicle)
         self.vehicle = ego_vehicle
 
