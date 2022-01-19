@@ -102,6 +102,7 @@ class Vehicle(RoadObject):
         :param action: the input action
         """
         if action:
+            print("Vechile act is ", action)
             self.action = action
 
     def step(self, dt: float) -> None:
