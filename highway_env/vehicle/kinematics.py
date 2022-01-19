@@ -37,11 +37,12 @@ class Vehicle(RoadObject):
                  predition_type: str = 'constant_steering'):
         super().__init__(road, position, heading, speed)
         self.prediction_type = predition_type
-        self.action = {'steering': 0, 'acceleration': 0}
+        self.action = {'steering': 0.0, 'acceleration': 0.0}
         self.crashed = False
         self.impact = None
         self.log = []
         self.history = deque(maxlen=self.HISTORY_SIZE)
+        print("At construction, Vehicle action is ", self.action, "speed is: ", self.speed)
 
     @classmethod
     def create_random(cls, road: Road,
@@ -115,6 +116,7 @@ class Vehicle(RoadObject):
 
         :param dt: timestep of integration of the model [s]
         """
+        print("before step, action is ", self.action)
         self.clip_actions()
         delta_f = self.action['steering']
         beta = np.arctan(1 / 2 * np.tan(delta_f))
@@ -128,6 +130,7 @@ class Vehicle(RoadObject):
         self.heading += self.speed * np.sin(beta) / (self.LENGTH / 2) * dt
         self.speed += self.action['acceleration'] * dt
         self.on_state_update()
+        print("after step, action is ", self.action)
 
     def clip_actions(self) -> None:
         if self.crashed:
