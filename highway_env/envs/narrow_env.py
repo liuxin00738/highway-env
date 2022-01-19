@@ -26,7 +26,7 @@ class NarrowEnv(AbstractEnv):
         config = super().default_config()
         config.update({
             "observation": {
-                "type": "Kinematics"
+                "type": "Kinematics",
                 "features": ["presence", "x", "y", "vx", "vy"],
                 "vehicles_count": 3,
                 "features_range": {
