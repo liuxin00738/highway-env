@@ -54,8 +54,9 @@ class IDMVehicle(ControlledVehicle):
                  target_speed: float = None,
                  route: Route = None,
                  enable_lane_change: bool = True,
-                 timer: float = None):
-        super().__init__(road, position, heading, speed, target_lane_index, target_speed, route)
+                 timer: float = None,
+                 name: str = "anonymous_idm"):
+        super().__init__(road, position, heading, speed, target_lane_index, target_speed, route, name)
         self.enable_lane_change = enable_lane_change
         self.timer = timer or (np.sum(self.position)*np.pi) % self.LANE_CHANGE_DELAY
 

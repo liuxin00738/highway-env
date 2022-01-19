@@ -44,7 +44,7 @@ class Vehicle(RoadObject):
         self.log = []
         self.history = deque(maxlen=self.HISTORY_SIZE)
         self.name = name
-        print("At construction, Vehicle %s action is "%self.name, self.action, "speed is: ", self.speed)
+        # print("At construction, Vehicle %s action is "%self.name, self.action, "speed is: ", self.speed)
 
     @classmethod
     def create_random(cls, road: Road,
@@ -85,6 +85,9 @@ class Vehicle(RoadObject):
         v = cls(road, lane.position(x0, 0), lane.heading_at(x0), speed)
         return v
 
+    def name(self) -> str:
+        return self.name
+
     @classmethod
     def create_from(cls, vehicle: "Vehicle") -> "Vehicle":
         """
@@ -105,7 +108,7 @@ class Vehicle(RoadObject):
         :param action: the input action
         """
         if action:
-            print("Vechile %s act is "%self.name, action)
+            # print("Vechile %s act is "%self.name, action)
             self.action = action
 
     def step(self, dt: float) -> None:
@@ -118,7 +121,7 @@ class Vehicle(RoadObject):
 
         :param dt: timestep of integration of the model [s]
         """
-        print("before step, Vehicle %s action is "%self.name, self.action)
+        # print("before step, Vehicle %s action is "%self.name, self.action)
         self.clip_actions()
         delta_f = self.action['steering']
         beta = np.arctan(1 / 2 * np.tan(delta_f))
@@ -132,7 +135,7 @@ class Vehicle(RoadObject):
         self.heading += self.speed * np.sin(beta) / (self.LENGTH / 2) * dt
         self.speed += self.action['acceleration'] * dt
         self.on_state_update()
-        print("after step, Vehicle %s action is "%self.name, self.action)
+        # print("after step, Vehicle %s action is "%self.name, self.action)
 
     def clip_actions(self) -> None:
         if self.crashed:

@@ -27,6 +27,17 @@ class NarrowEnv(AbstractEnv):
         config.update({
             "observation": {
                 "type": "Kinematics"
+                "features": ["presence", "x", "y", "vx", "vy"],
+                "vehicles_count": 3,
+                "features_range": {
+                    "x": [-100, 100],
+                    "y": [-100, 100],
+                    "vx": [-20, 20],
+                    "vy": [-20, 20]
+                },
+                "absolute": True,
+                "order": "sorted",
+                "normalize": False,
             },
             "action": {
                 "type": "DiscreteMetaAction",
@@ -36,6 +47,7 @@ class NarrowEnv(AbstractEnv):
             "left_lane_reward": 0.2,
             "high_speed_reward": 0.8,
         })
+
         return config
 
     def _reward(self, action: int) -> float:
@@ -106,33 +118,33 @@ class NarrowEnv(AbstractEnv):
         vehicles_type = utils.class_from_path(self.config["other_vehicles_type"])
 
         # Add stationary vehicles on the left and right of the lane with zero speed.
-        # for i in range(2):
-        #     v = Vehicle(road, position=road.network.get_lane(("b", "a", 0))
-        #         .position(50 + 100*self.np_random.uniform(), 2.5),
-        #         heading=road.network.get_lane(("b", "a", 0)).heading_at(0),
-        #         speed=0)
-        #     v.target_lane_index = ("b", "a", 0)
-        #     self.road.vehicles.append(v)
+        for i in range(2):
+            v = Vehicle(road, position=road.network.get_lane(("b", "a", 0))
+                .position(50 + 100*self.np_random.uniform(), 2.5),
+                heading=road.network.get_lane(("b", "a", 0)).heading_at(0),
+                speed=0, name="left_vehicle_"+str(i))
+            v.target_lane_index = ("b", "a", 0)
+            self.road.vehicles.append(v)
 
         # Add stationary vehicles on the left and right of the lane with zero speed.
         for i in range(2):
             v = Vehicle(road, position=road.network.get_lane(("a", "b", 0))
                 .position(50 + 100*self.np_random.uniform(), 2.5),
                 heading=road.network.get_lane(("a", "b", 0)).heading_at(0),
-                speed=0, name="stationary_vehicle_"+str(i))
+                speed=0, name="right_vehicle_"+str(i))
             v.target_lane_index = ("a", "b", 0)
             self.road.vehicles.append(v)
 
         # Add one oncoming vehicle, which is simply following the lane
-        # for i in range(1):
-        #     v = vehicles_type(road,
-        #                       position=road.network.get_lane(("b", "a", 0))
-        #                       .position(50 + 10*self.np_random.uniform(), 0),
-        #                       heading=road.network.get_lane(("b", "a", 0)).heading_at(0),
-        #                       speed=1 + 5*self.np_random.uniform(),
-        #                       enable_lane_change=False)
-        #     v.target_lane_index = ("b", "a", 0)
-        #     self.road.vehicles.append(v)
+        for i in range(1):
+            v = vehicles_type(road,
+                              position=road.network.get_lane(("b", "a", 0))
+                              .position(50 + 10*self.np_random.uniform(), 0),
+                              heading=road.network.get_lane(("b", "a", 0)).heading_at(0),
+                              speed=1 + 5*self.np_random.uniform(),
+                              enable_lane_change=False, name="oncoming")
+            v.target_lane_index = ("b", "a", 0)
+            self.road.vehicles.append(v)
 
 
 register(
