@@ -38,8 +38,9 @@ class ControlledVehicle(Vehicle):
                  speed: float = 0,
                  target_lane_index: LaneIndex = None,
                  target_speed: float = None,
-                 route: Route = None):
-        super().__init__(road, position, heading, speed)
+                 route: Route = None,
+                 name: str = "anonymous_controlled_vehicle"):
+        super().__init__(road, position, heading, speed, name)
         self.target_lane_index = target_lane_index or self.lane_index
         self.target_speed = target_speed or self.speed
         self.route = route
@@ -213,7 +214,8 @@ class MDPVehicle(ControlledVehicle):
                  target_lane_index: Optional[LaneIndex] = None,
                  target_speed: Optional[float] = None,
                  target_speeds: Optional[Vector] = None,
-                 route: Optional[Route] = None) -> None:
+                 route: Optional[Route] = None,
+                 name: str = "anonymous_mdp") -> None:
         """
         Initializes an MDPVehicle
 
@@ -226,7 +228,7 @@ class MDPVehicle(ControlledVehicle):
         :param target_speeds: the discrete list of speeds the vehicle is able to track, through faster/slower actions
         :param route: the planned route of the vehicle, to handle intersections
         """
-        super().__init__(road, position, heading, speed, target_lane_index, target_speed, route)
+        super().__init__(road, position, heading, speed, target_lane_index, target_speed, route, name)
         self.target_speeds = np.array(target_speeds) if target_speeds is not None else self.DEFAULT_TARGET_SPEEDS
         self.speed_index = self.speed_to_index(self.target_speed)
         self.target_speed = self.index_to_speed(self.speed_index)
